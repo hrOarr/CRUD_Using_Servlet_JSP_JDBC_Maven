@@ -94,9 +94,7 @@ public class UserController extends HttpServlet {
 	private void allUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		List<User> users = userDao.allUsers();
 		request.setAttribute("allUsers", users);
-		
-		System.out.println("Users " + users);
-		
+				
 		RequestDispatcher rd = request.getRequestDispatcher("user_list.jsp");
 		rd.forward(request, response);
 	}

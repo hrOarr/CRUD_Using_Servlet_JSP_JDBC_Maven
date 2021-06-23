@@ -25,7 +25,7 @@
     <hr>
     
     <div class="row">
-      <a href="<%= request.getContextPath()%>/new" class="btn btn-primary">Add New User</a>
+      <a href="<%=request.getContextPath()%>/new" class="btn btn-primary">Add New User</a>
     </div>
     <br>
     
