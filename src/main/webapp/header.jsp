@@ -4,15 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Home</title>
-
-<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-
+<title></title>
 </head>
-
-<body class="bg-blue-300">
-  
-  <jsp:forward page="/article_list" />
-  
+<body>
+   I am header........
 </body>
 </html>

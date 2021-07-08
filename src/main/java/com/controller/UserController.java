@@ -10,37 +10,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dao.UserDao;
 import com.model.User;
+import com.service.UserServiceImp;
 
-@WebServlet("/")
+@WebServlet(urlPatterns = 
+{"/users/user_list", "/users/new", "/users/insert", "/users/edit","/users/update", "/users/delete"})
 public class UserController extends HttpServlet {
-	
-	private UserDao userDao;
+	private static final long serialVersionUID = 1L;
+	private UserServiceImp userServiceImp;
 		
 	public UserController() {
-		this.userDao = new UserDao();
+		this.userServiceImp = UserServiceImp.getServiceImp();
 	}
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getServletPath();
 		System.out.println(path);
-		
 		switch(path) {
-		case "/new":
+		case "/users/new":
 			showNewForm(request, response);
 			break;
-		case "/insert":
+		case "/users/insert":
 			insertUser(request, response);
 			break;
-		case "/update":
+		case "/users/update":
 			updateUser(request, response);
 			break;
-		case "/edit":
+		case "/users/edit":
 			showEditForm(request, response);
 			break;
-		case "/delete":
+		case "/users/delete":
 			deleteUser(request, response);
 			break;
 		default:
@@ -61,7 +61,7 @@ public class UserController extends HttpServlet {
 	
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		int id = Integer.parseInt(request.getParameter("id"));
-		User user = userDao.selectUser(id);
+		User user = userServiceImp.selectUser(id);
 		
 		request.setAttribute("user", user);
 		RequestDispatcher rd = request.getRequestDispatcher("show_form.jsp");
@@ -74,7 +74,7 @@ public class UserController extends HttpServlet {
 		String country = request.getParameter("country");
 		
 		User user = new User(name, email, country);
-		userDao.insertUser(user);
+		userServiceImp.InsertUser(user);
 		
 		response.sendRedirect("user_list");
 	}
@@ -86,13 +86,13 @@ public class UserController extends HttpServlet {
 		String country = request.getParameter("country");
 		
 		User user = new User(id, name, email, country);
-		userDao.updateUser(user);
+		userServiceImp.updateUser(user);
 		
 		response.sendRedirect("user_list");
 	}
 	
 	private void allUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		List<User> users = userDao.allUsers();
+		List<User> users = userServiceImp.allUsers();
 		request.setAttribute("allUsers", users);
 				
 		RequestDispatcher rd = request.getRequestDispatcher("user_list.jsp");
@@ -101,7 +101,7 @@ public class UserController extends HttpServlet {
 	
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		int id = Integer.parseInt(request.getParameter("id"));
-		userDao.deleteUser(id);
+		userServiceImp.deleteUser(id);
 		
 		response.sendRedirect("user_list");
 	}
