@@ -19,10 +19,10 @@ public class ArticleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ArticleServiceImp articleServiceImp;
-   
-    public ArticleController() {
-    	this.articleServiceImp = ArticleServiceImp.getInstance();
-    }
+	
+	public ArticleController() {
+		this.articleServiceImp = ArticleServiceImp.getInstance();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getServletPath();
